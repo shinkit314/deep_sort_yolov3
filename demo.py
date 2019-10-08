@@ -78,7 +78,8 @@ def main(yolo):
                 continue 
             bbox = track.to_tlbr()
             cv2.rectangle(frame, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])),(255,255,255), 2)
-            cv2.putText(frame, str(track.track_id),(int(bbox[0]), int(bbox[1])),0, 5e-3 * 200, (0,255,0),2)
+            # 2019-10-8
+            cv2.putText(frame, "id: " + str(track.track_id) + " score: " + str(bbox[4] ,(int(bbox[0]), int(bbox[1])),0, 5e-3 * 200, (0,255,0),2)
 
         for det in detections:
             bbox = det.to_tlbr()
