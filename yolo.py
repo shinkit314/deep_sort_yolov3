@@ -111,9 +111,9 @@ class YOLO(object):
             if y < 0 :
                 h = h + y
                 y = 0 
-            return_boxs.append([x,y,w,h,score]) # 2019-10-8
+            return_boxs.append([x,y,w,h])
 
-        return return_boxs
+        return return_boxs, score # add score
 
     def close_session(self):
         self.sess.close()
