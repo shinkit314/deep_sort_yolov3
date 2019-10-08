@@ -100,7 +100,7 @@ class YOLO(object):
             if predicted_class != 'person' :
                 continue
             box = out_boxes[i]
-           # score = out_scores[i]  
+            score = out_scores[i]  // // 2019-10-8
             x = int(box[1])  
             y = int(box[0])  
             w = int(box[3]-box[1])
@@ -111,7 +111,7 @@ class YOLO(object):
             if y < 0 :
                 h = h + y
                 y = 0 
-            return_boxs.append([x,y,w,h])
+            return_boxs.append([x,y,w,h,score]) // 2019-10-8
 
         return return_boxs
 
