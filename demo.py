@@ -91,11 +91,14 @@ def main(yolo):
             print(track_num)
             print("len:" + str(len(scores_)))
             if len(scores_) > 0:
+                if track_num >= len(scores_):
+                     continue
                 cv2.putText(frame, "id: " + str(track.track_id) + " score: " + str(scores_[track_num]) ,(int(bbox[0]), int(bbox[1])),0, 5e-3 * 200, (0,255,0),2)
                 # 2019/10/21 add track_str
                 if writeVideo_flag:                                  
                   track_str = track_str + str(track.track_id) + ";" + str(format(scores_[track_num], ".4f")) + ";" + str(strTime) +  ";" + str(frame_index + 1) + "\n"
-                track_num += 1  
+                
+               track_num += 1  
         for det in detections:
             bbox = det.to_tlbr()
             cv2.rectangle(frame,(int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])),(255,0,0), 2)
