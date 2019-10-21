@@ -4,6 +4,7 @@
 from __future__ import division, print_function, absolute_import
 
 import os
+import re
 from timeit import time
 import warnings
 import sys
@@ -46,8 +47,12 @@ def main(yolo):
         w = int(video_capture.get(3))
         h = int(video_capture.get(4))
         fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-        out = cv2.VideoWriter(sys.argv[1] + '_output.avi', fourcc, 30, (w, h))
-        list_file = open(sys.argv[1] + '_detection.txt', 'w')
+        if len(sys.argv) > 1:
+            file_name = re.split("\.|/", sys.argv[1])[-2]
+        else:
+            file_name = "camera"
+        out = cv2.VideoWriter(file_name + '_output.avi', fourcc, 30, (w, h))
+        list_file = open(file_name + '_detection.txt', 'w')
         frame_index = -1 
         
     fps = 0.0
