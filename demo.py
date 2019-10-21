@@ -79,18 +79,20 @@ def main(yolo):
         timestamp = time.time()
         localTime = time.localtime(timestamp)
         strTime = time.strftime("%Y-%m-%d %H:%M:%S", localTime)
-      
+        track_num = 0
+        
         for track in tracker.tracks:
+
             if not track.is_confirmed() or track.time_since_update > 1:
                 continue 
             bbox = track.to_tlbr()
             cv2.rectangle(frame, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])),(255,255,255), 2)
             # 2019-10-8
-            cv2.putText(frame, "id: " + str(track.track_id) + " score: " + str(score_) ,(int(bbox[0]), int(bbox[1])),0, 5e-3 * 200, (0,255,0),2)
+            cv2.putText(frame, "id: " + str(track.track_id) + " score: " + str(scores_[track_num]) ,(int(bbox[0]), int(bbox[1])),0, 5e-3 * 200, (0,255,0),2)
             # 2019/10/21 add track_str
             if writeVideo_flag:                                  
-               track_str = track_str + str(track.track_id) + ";" + str(format(scores_, ".2f")) + ";" + str(strTime) +  ";" + str(frame_index + 1) + "\n"
-               
+               track_str = track_str + str(track.track_id) + ";" + str(format(scores_[track-num], ".2f")) + ";" + str(strTime) +  ";" + str(frame_index + 1) + "\n"
+            track_num += 1  
         for det in detections:
             bbox = det.to_tlbr()
             cv2.rectangle(frame,(int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])),(255,0,0), 2)
