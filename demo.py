@@ -76,7 +76,7 @@ def main(yolo):
         track_str = ""
         timestamp = time.time()
         localTime = time.localtime(timestamp)
-        strTime = time.strftime("%Y-%m-%d %H-%M-%S", localTime)
+        strTime = time.strftime("%Y-%m-%d %H:%M:%S", localTime)
       
         for track in tracker.tracks:
             if not track.is_confirmed() or track.time_since_update > 1:
