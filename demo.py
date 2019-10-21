@@ -56,7 +56,9 @@ def main(yolo):
 
        # image = Image.fromarray(frame)
         image = Image.fromarray(frame[...,::-1]) #bgr to rgb
-        boxs, score_ = yolo.detect_image(image)
+        boxs, scores_ = yolo.detect_image(image)
+        print(scores_)
+        print("\n")
        # print("box_num",len(boxs))
         features = encoder(frame,boxs)
         
@@ -66,8 +68,6 @@ def main(yolo):
         # Run non-maxima suppression.
         boxes = np.array([d.tlwh for d in detections])
         scores = np.array([d.confidence for d in detections])
-        print(scores)
-        print("\n")
         indices = preprocessing.non_max_suppression(boxes, nms_max_overlap, scores)
         detections = [detections[i] for i in indices]
         
@@ -89,7 +89,7 @@ def main(yolo):
             cv2.putText(frame, "id: " + str(track.track_id) + " score: " + str(score_) ,(int(bbox[0]), int(bbox[1])),0, 5e-3 * 200, (0,255,0),2)
             # 2019/10/21 add track_str
             if writeVideo_flag:                                  
-               track_str = track_str + str(track.track_id) + ";" + str(format(score_, ".2f")) + ";" + str(strTime) +  ";" + str(frame_index + 1) + "\n"
+               track_str = track_str + str(track.track_id) + ";" + str(format(scores_, ".2f")) + ";" + str(strTime) +  ";" + str(frame_index + 1) + "\n"
                
         for det in detections:
             bbox = det.to_tlbr()
