@@ -36,8 +36,8 @@ def main(yolo):
 
     writeVideo_flag = True 
     
-    if len(sys.argv) > 0:
-        video_capture = cv2.VideoCapture(sys.argv[0])
+    if len(sys.argv) > 1:
+        video_capture = cv2.VideoCapture(sys.argv[1])
     else:
         video_capture = cv2.VideoCapture(0)
 
