@@ -100,13 +100,13 @@ def main(yolo):
 
             list_file.write(track_str) # 2019/10/21
             
-            ‘’‘ 
+            """
             2019/10/21
             if len(boxs) != 0:
                 for i in range(0,len(boxs)):
                     list_file.write(str(boxs[i][0]) + ' '+str(boxs[i][1]) + ' '+str(boxs[i][2]) + ' '+str(boxs[i][3]) + ' ')
             list_file.write('\n')
-            ’‘’
+            """
             
         fps  = ( fps + (1./(time.time()-t1)) ) / 2
         print("fps= %f"%(fps))
