@@ -57,8 +57,6 @@ def main(yolo):
        # image = Image.fromarray(frame)
         image = Image.fromarray(frame[...,::-1]) #bgr to rgb
         boxs, scores_ = yolo.detect_image(image)
-        print(scores_)
-        print("\n")
        # print("box_num",len(boxs))
         features = encoder(frame,boxs)
         
@@ -87,9 +85,8 @@ def main(yolo):
                 continue 
             bbox = track.to_tlbr()
             cv2.rectangle(frame, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])),(255,255,255), 2)
-            # 2019-10-8
-            print(track_num)
-            print("len:" + str(len(scores_)))
+            
+            # 2019-10-21
             if len(scores_) > 0:
                 if track_num >= len(scores_):
                      continue
