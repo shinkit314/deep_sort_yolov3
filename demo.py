@@ -73,6 +73,9 @@ def main(yolo):
         tracker.predict()
         tracker.update(detections)
         
+        track_str = ""
+        timestamp = ""
+      
         for track in tracker.tracks:
             if not track.is_confirmed() or track.time_since_update > 1:
                 continue 
@@ -80,7 +83,10 @@ def main(yolo):
             cv2.rectangle(frame, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])),(255,255,255), 2)
             # 2019-10-8
             cv2.putText(frame, "id: " + str(track.track_id) + " score: " + str(score_) ,(int(bbox[0]), int(bbox[1])),0, 5e-3 * 200, (0,255,0),2)
-
+            # 2019/10/21 add track_str
+            if writeVideo_flag:                                  
+               track_str = "".join(track_str, str(track.track_id), ";", str(score_), ";", str(timestamp), ";" ,str(frame_index + 1), "\n")
+               
         for det in detections:
             bbox = det.to_tlbr()
             cv2.rectangle(frame,(int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])),(255,0,0), 2)
@@ -91,11 +97,16 @@ def main(yolo):
             # save a frame
             out.write(frame)
             frame_index = frame_index + 1
-            list_file.write(str(frame_index)+' ')
+
+            list_file.write(track_str) # 2019/10/21
+            
+            ‘’‘ 
+            2019/10/21
             if len(boxs) != 0:
                 for i in range(0,len(boxs)):
                     list_file.write(str(boxs[i][0]) + ' '+str(boxs[i][1]) + ' '+str(boxs[i][2]) + ' '+str(boxs[i][3]) + ' ')
             list_file.write('\n')
+            ’‘’
             
         fps  = ( fps + (1./(time.time()-t1)) ) / 2
         print("fps= %f"%(fps))
