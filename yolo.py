@@ -98,7 +98,7 @@ class YOLO(object):
         scores = []
         for i, c in reversed(list(enumerate(out_classes))):
             predicted_class = self.class_names[c]
-            if predicted_class != 'fish' :
+            if predicted_class != 'person' :
                 continue
             box = out_boxes[i]
             score = out_scores[i]  # 2019-10-8
