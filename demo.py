@@ -102,7 +102,7 @@ def main(yolo):
                 # 2019/10/21 add track_str
                 if writeVideo_flag:                                  
                   track_str = track_str + str(strTime) + ";" + str(frame_index + 1) + ";" + str(track.track_id) + ";" + str(format(scores_[track_num], ".4f")) 
-                  + ";" + str(boxs[track_num][0]) + ' '+str(boxs[track_num][1]) + ' '+str(boxs[track_num][2]) + ' '+str(boxs[track_num][3]) + ' ' + "\n"
+                  + ";" + str(boxs[track_num][0]) + ' ' + str(boxs[track_num][1]) + ' ' + str(boxs[track_num][2]) + ' ' + str(boxs[track_num][3]) + ' ' + "\n"
                 
                 track_num += 1  
         for det in detections:
